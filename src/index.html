@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blynk</title>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="/dist/output.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div
+      class="w-full min-h-screen bg-slate-900 overflow-x-hidden p-4 flex flex-col justify-center items-center text-white text-lg">
+      <div
+        id="Blynk__switch"
+        class="Blynk__switch gap-4 p-3 max-w-full min-w-[100px] py-6 rounded-xl first-letter:rounded-xl bg-slate-600 h-full flex flex-col items-center justify-center">
+        <div
+          id="blynk__response__switch__1"
+          vertualPin="v0"
+          dataStreamId="1"
+          class="blynk__response__switch w-full h-full flex gap-3 flex-col items-center justify-center">
+          <input
+            type="button"
+            value="on"
+            id="l1"
+            readonly
+            switchValue="0"
+            class="l1 btn outline-none hidden ring-4 ring-slate-400 bg-green-400 text-slate-900 duration-300 px-3 py-1 font-bold tracking-wide hover:tracking-widest hover:bg-green-400 hover:text-white rounded-sm uppercase" />
+          <input
+            type="button"
+            value="off"
+            readonly
+            id="l2"
+            switchValue="1"
+            class="l2 btn hidden outline-none ring-4 ring-slate-400 bg-slate-100 text-slate-900 duration-300 px-3 py-1 font-bold tracking-wide hover:tracking-widest hover:bg-green-400 hover:text-white rounded-sm uppercase" />
+        </div>
+        <div
+          id="blynk__response__switch__2"
+          vertualPin="v1"
+          dataStreamId="2"
+          class="blynk__response__switch w-full h-full flex gap-3 flex-col items-center justify-center">
+          <input
+            type="button"
+            value="on"
+            id="l1"
+            readonly
+            switchValue="0"
+            class="l1 btn outline-none hidden ring-4 ring-slate-400 bg-green-400 text-slate-900 duration-300 px-3 py-1 font-bold tracking-wide hover:tracking-widest hover:bg-green-400 hover:text-white rounded-sm uppercase" />
+          <input
+            type="button"
+            value="off"
+            readonly
+            id="l2"
+            switchValue="1"
+            class="l2 btn hidden outline-none ring-4 ring-slate-400 bg-slate-100 text-slate-900 duration-300 px-3 py-1 font-bold tracking-wide hover:tracking-widest hover:bg-green-400 hover:text-white rounded-sm uppercase" />
+        </div>
+        <div
+          id="blynk__response__switch__3"
+          vertualPin="v2"
+          dataStreamId="3"
+          class="blynk__response__switch w-full h-full flex gap-3 flex-col items-center justify-center">
+          <input
+            type="button"
+            value="on"
+            id="l1"
+            readonly
+            switchValue="0"
+            class="l1 btn outline-none hidden ring-4 ring-slate-400 bg-green-400 text-slate-900 duration-300 px-3 py-1 font-bold tracking-wide hover:tracking-widest hover:bg-green-400 hover:text-white rounded-sm uppercase" />
+          <input
+            type="button"
+            value="off"
+            readonly
+            id="l2"
+            switchValue="1"
+            class="l2 btn hidden outline-none ring-4 ring-slate-400 bg-slate-100 text-slate-900 duration-300 px-3 py-1 font-bold tracking-wide hover:tracking-widest hover:bg-green-400 hover:text-white rounded-sm uppercase" />
+        </div>
+        <button
+          id="refresh"
+          class="outline-none ring-4 ring-slate-400 bg-yellow-300 text-slate-900 duration-300 px-3 py-1 font-bold tracking-wide hover:tracking-widest hover:bg-green-400 hover:text-white rounded-sm uppercase">
+          Refresh
+        </button>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        const Auth_token = "Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by"
+
+        function toggleSwtitch(blynk__response__switch) {
+          let onBtn = $(`${blynk__response__switch} #l1`)
+          let offBtn = $(`${blynk__response__switch} #l2`)
+          let vertual_pin = $(blynk__response__switch).attr("vertualPin")
+          let dataStreamId = +$(blynk__response__switch).attr("dataStreamId")
+
+          onBtn.click(function () {
+            $.ajax({
+              url: `https://blynk.cloud/external/api/update?token=${Auth_token}&dataStreamId=${dataStreamId}&value=${+onBtn.attr(
+                "switchValue"
+              )}`,
+              type: "GET",
+              success: function (response) {
+                offBtn.removeClass("hidden")
+                onBtn.addClass("hidden")
+              },
+            })
+          })
+
+          offBtn.click(function () {
+            $.ajax({
+              url: `https://blynk.cloud/external/api/update?token=${Auth_token}&dataStreamId=${dataStreamId}&value=${+offBtn.attr(
+                "switchValue"
+              )}`,
+              type: "GET",
+              success: function (response) {
+                offBtn.addClass("hidden")
+                onBtn.removeClass("hidden")
+              },
+            })
+          })
+
+          BtnStatus(vertual_pin, onBtn, offBtn)
+        }
+        // BtnStatus(
+        //   "v0",
+        //   $("#blynk__response__switch__1 #l1"),
+        //   $("#blynk__response__switch__1 #l2")
+        // )
+
+        function BtnStatus(vertual_pin, onBtn, offBtn) {
+          $.ajax({
+            url: `https://blynk.cloud/external/api/get?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&${vertual_pin}`,
+            type: "GET",
+            // data: "NOTHING",
+            success: function (response) {
+              // setTimeout(`window.location = ${this.url}`, 100)
+              if (response === 0) {
+                onBtn.addClass("hidden")
+                offBtn.removeClass("hidden")
+              } else if (response === 1) {
+                offBtn.addClass("hidden")
+                onBtn.removeClass("hidden")
+              }
+              // console.log(response)
+            },
+          })
+        }
+
+        //? Call All The Switch Functions ?
+        for (var i = 1; i <= $(".blynk__response__switch").length; i++) {
+          toggleSwtitch(`#blynk__response__switch__${i}`)
+        }
+
+        $("#refresh").click(() => window.location.reload())
+      })
+
+      // $(document).ajaxStop(function () {
+      //   setTimeout(
+      //     "window.location = 'https://blynk.cloud/external/api/get?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&v0'",
+      //     100
+      //   )
+      // })
+    </script>
+  </body>
+</html>
+<!-- !BLYNK-2.0
+
+  ? $('aside.ant-layout-sider.ant-layout-sider-dark.page-layout-navigation.global-search-level-2-page-layout-navigation').hidden = true
+
+  action="https://blynk.cloud/external/api/update?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&dataStreamId=1&value=0"
+  action="https://blynk.cloud/external/api/update?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&dataStreamId=1&value=1"
+-->

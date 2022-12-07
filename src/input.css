@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body::-webkit-scrollbar {
+  width: 2.5px !important;
+  border-radius: 10px !important;
+  transition: 2.5s;
+}
+
+body::-webkit-scrollbar:hover {
+  width: 7.5px;
+}
+/* 
+#blynk__res.blynk__res .dnone {
+  display: none;
+} */

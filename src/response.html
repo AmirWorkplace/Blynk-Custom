@@ -1,0 +1,157 @@
+<h1>Good Response</h1>
+$(document).ready(function () { const Auth_token =
+"Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by"; // let l1 = $('#l1'); // let l2 = $('#l2');
+// l1.removeClass('hidden'); function toggleSwtitch(vertual_pin, dataStreamId,
+onBtn, offBtn) { // BtnStatus(vertual_pin,$('#blynk__response__switch__one
+#l1'), $('#blynk__response__switch__one #l2')) onBtn.click(function () {
+BtnRequestSend(Auth_token, dataStreamId, +onBtn.attr('switchValue'), onBtn,
+offBtn); onBtn.addClass('hidden'); offBtn.removeClass('hidden'); //
+BtnRequestSend(Auth_token, 1, +$('#blynk__response__switch__one
+#l1').attr('switchValue'), $('#blynk__response__switch__one #l1'),
+$('#blynk__response__switch__one #l2')) }) offBtn.click(function () {
+BtnRequestSend(Auth_token, dataStreamId, +offBtn.attr('switchValue'), onBtn,
+offBtn); onBtn.removeClass('hidden'); offBtn.addClass('hidden'); //
+BtnRequestSend(Auth_token, 1, +$('#blynk__response__switch__one
+#l2').attr('switchValue'), $('#blynk__response__switch__one #l1'),
+$('#blynk__response__switch__one #l2')) }) BtnStatus(vertual_pin, onBtn,
+offBtn); } // BtnStatus('v0', $('#blynk__response__switch__one #l1'),
+$('#blynk__response__switch__one #l2')); toggleSwtitch('v0', 1,
+$('#blynk__response__switch__one #l1'), $('#blynk__response__switch__one #l2'));
+function BtnStatus(vertual_pin, onBtn, offBtn) { $.ajax({ url:
+`https://blynk.cloud/external/api/get?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&${vertual_pin}`,
+type: "GET", success: function (response) { if (response === 0) {
+onBtn.addClass("hidden") offBtn.removeClass("hidden") } else if (response === 1)
+{ offBtn.addClass("hidden") onBtn.removeClass("hidden") } }, }) } function
+BtnRequestSend(auth_token, dataStreamId, stwitchValue, onBtn, offBtn) { $.ajax({
+url:
+`https://blynk.cloud/external/api/update?token=${auth_token}&dataStreamId=${dataStreamId}&value=${stwitchValue}`,
+type: "GET", success: function (response) { if (stwitchValue == 0) { //
+if(onBtn.hasClass("hidden")){ offBtn.addClass("hidden")
+onBtn.removeClass("hidden") console.log(stwitchValue); //
+console.log(onBtn.attr("class")); // } } else if (stwitchValue == 1) {
+console.log(stwitchValue); offBtn.removeClass("hidden") onBtn.addClass("hidden")
+} }, }) } // $("#Button__one").submit(function (e) { // e.preventDefault // })
+// $("#Button__two").submit(function (e) { // e.preventDefault // }) //
+$("#blynk__btn").on("keyup", function () { // $.ajax({ // url:
+"https://blynk.cloud/external/api/get?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&v0",
+// type: "GET", // success: function (response) { // // $("#lf1").html(response)
+// // $("#l1").html(response) // // $("#l2").html(response) // //
+console.log(response) // if (response === 0) { // $("#l1").addClass("hidden") //
+$("#l2").removeClass("hidden") // } else if (response === 1) { //
+$("#l2").addClass("hidden") // $("#l1").removeClass("hidden") // } // }, // })
+// // }) // $("#l1").on("click", function () { // $.ajax({ // url:
+"https://blynk.cloud/external/api/update?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&dataStreamId=1&value=1",
+// // url:
+"https://blynk.cloud/external/api/get?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&v0",
+// type: "GET", // success: function (response) { // // $("#l1").val("on") //
+$("#l1").removeClass("hidden") // $("#l2").addClass("hidden") //
+console.log(response) // }, // }) // }) // $("#l2").on("click", function () { //
+$.ajax({ // url:
+"https://blynk.cloud/external/api/update?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&dataStreamId=1&value=0",
+// // url:
+"https://blynk.cloud/external/api/get?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&v0",
+// type: "GET", // success: function (response) { // // $("#l1").val("off") //
+$("#l2").removeClass("hidden") // $("#l1").addClass("hidden") //
+console.log(response) // }, // }) // }) })
+<!--! JS -->
+
+/* if (stwitchValue == 0) { if(onBtn.hasClass("hidden")){
+offBtn.addClass("hidden") onBtn.removeClass("hidden") console.log(stwitchValue);
+console.log(onBtn.attr("class")); } } else if (stwitchValue == 1) {
+console.log(stwitchValue); } BtnRequestSend(Auth_token, dataStreamId,
++onBtn.attr('switchValue'), onBtn, offBtn); onBtn.addClass('hidden');
+offBtn.removeClass('hidden'); BtnRequestSend(Auth_token, 1,
++$('#blynk__response__switch__one #l1').attr('switchValue'),
+$('#blynk__response__switch__one #l1'), $('#blynk__response__switch__one #l2'))
+if (stwitchValue == 0) { if(onBtn.hasClass("hidden")){
+console.log(stwitchValue); console.log(onBtn.attr("class")); } } else if
+(stwitchValue == 1) { console.log(stwitchValue); offBtn.removeClass("hidden")
+onBtn.addClass("hidden") } BtnRequestSend(Auth_token, dataStreamId,
++offBtn.attr('switchValue'), onBtn, offBtn); onBtn.removeClass('hidden');
+offBtn.addClass('hidden'); BtnRequestSend(Auth_token, 1,
++$('#blynk__response__switch__one #l2').attr('switchValue'),
+$('#blynk__response__switch__one #l1'), $('#blynk__response__switch__one #l2'))
+BtnStatus('v0', $('#blynk__response__switch__one #l1'),
+$('#blynk__response__switch__one #l2')); if(onBtn.hasClass("hidden")){
+console.log(onBtn.attr("class")); } $("#Button__one").submit(function (e) {
+e.preventDefault }) $("#Button__two").submit(function (e) { e.preventDefault })
+$("#blynk__btn").on("keyup", function () { $.ajax({ url:
+"https://blynk.cloud/external/api/get?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&v0",
+type: "GET", success: function (response) { // $("#lf1").html(response) //
+$("#l1").html(response) // $("#l2").html(response) // console.log(response) if
+(response === 0) { $("#l1").addClass("hidden") $("#l2").removeClass("hidden") }
+else if (response === 1) { $("#l2").addClass("hidden")
+$("#l1").removeClass("hidden") } }, }) // }) $("#l1").on("click", function () {
+$.ajax({ url:
+"https://blynk.cloud/external/api/update?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&dataStreamId=1&value=1",
+// url:
+"https://blynk.cloud/external/api/get?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&v0",
+type: "GET", success: function (response) { // $("#l1").val("on")
+$("#l1").removeClass("hidden") $("#l2").addClass("hidden") console.log(response)
+}, }) }) $("#l2").on("click", function () { $.ajax({ url:
+"https://blynk.cloud/external/api/update?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&dataStreamId=1&value=0",
+// url:
+"https://blynk.cloud/external/api/get?token=Gq2xJ7uj2RbCqHurMycIC_UOpc1YE3by&v0",
+type: "GET", success: function (response) { // $("#l1").val("off")
+$("#l2").removeClass("hidden") $("#l1").addClass("hidden") console.log(response)
+}, }) }) function qsa(value) { return document.querySelectorAll(value) } const x
+= qsa("a") x.forEach((item) => { item.addEventListener("click", function (event)
+{ event.target.preventDefault }) }) if (false) { // turn toggle switch off
+$("#ts4").attr("checked", false); $('#activate').click(); } else { // turn
+toggle switch off $('#ts4').attr("checked", true); $('#activate').click(); } */
+// BtnStatus(vertual_pin,$('#blynk__response__switch__one #l1'),
+$('#blynk__response__switch__one #l2')) // let l1 = $('#l1'); // let l2 =
+$('#l2'); // l1.removeClass('hidden');
+
+<! --
+           <input
+            type="button"
+            id="lf1"
+            readonly
+            class="btn ring-4 outline-none ring-slate-400 bg-slate-100 text-slate-900 duration-300 px-3 py-1 font-bold tracking-wide hover:tracking-widest hover:bg-green-400 hover:text-white rounded-sm uppercase" />
+        </div> - ->
+
+<!- -
+       <div id="activate" class="toggle-switch bg-slate-100 text-slate-900" data-ts-color="green">
+          <label for="ts4" class="ts-label">Activate Account</label>
+          <input id="ts4" type="checkbox" hidden="hidden">
+          <label for="ts4" class="ts-helper"></label>
+        </div> - ->
+                // console.log(1)
+                // console.log(0)
+        // for (
+        //   var j = 0;
+        //   j <= document.querySelectorAll(".blynk__response__switch").length;
+        //   j++
+        // ) {
+        //   console.log(j)
+        //   console.log(
+        //     document.querySelectorAll(".blynk__response__switch").length
+        //   )
+        // }
+        // toggleSwtitch("#blynk__response__switch__1")
+        // toggleSwtitch("#blynk__response__switch__2")
+        // toggleSwtitch("#blynk__response__switch__3")
+        /* toggleSwtitch(
+        "v0",
+        1,
+        $("#blynk__response__switch__1 #l1"),
+        $("#blynk__response__switch__1 #l2")
+      )
+      toggleSwtitch(
+        "v1",
+        2,
+        $("#blynk__response__switch__2 #l1"),
+        $("#blynk__response__switch__2 #l2")
+      )
+      toggleSwtitch(
+        "v2",
+        3,
+        $("#blynk__response__switch__3 #l1"),
+        $("#blynk__response__switch__3 #l2")
+      ) */
+      
+          // console.log(onBtn)
+          // console.log(offBtn)
+          // console.log(vertual_pin)
+          // console.log(dataStreamId)
